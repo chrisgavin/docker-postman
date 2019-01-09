@@ -1,0 +1,7 @@
+#!/usr/bin/env sh
+set -eu
+version=$(docker run --rm --entrypoint cat "$IMAGE_NAME" /Postman/app/version)
+base_image_name=$(echo "$IMAGE_NAME" | cut -d ":" -f 1)
+tagged_image_name="$base_image_name:$version"
+docker tag "$IMAGE_NAME" "$tagged_image_name"
+docker push "$tagged_image_name"
